@@ -21,6 +21,7 @@ Contents
    :caption: Posts
 
    assignment1
+   assignment2
 
 
 Indices and tables
