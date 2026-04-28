@@ -1,0 +1,542 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="Remote Development Project Report" href="assignment1.html">
+
+    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>Assignment 2 — Static Personal Blog Website - Meng Wang&#39;s Blog 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Meng Wang's Blog 0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">Meng Wang's Blog 0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Posts</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="assignment1.html">Remote Development Project Report</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Assignment 2 — Static Personal Blog Website</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/assignment2.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="assignment-2-static-personal-blog-website">
+<h1>Assignment 2 — Static Personal Blog Website<a class="headerlink" href="#assignment-2-static-personal-blog-website" title="Link to this heading">¶</a></h1>
+<p><strong>Student Name</strong>: Meng Wang
+<strong>Student ID</strong>: ZY2557108</p>
+<blockquote>
+<div><p>A walkthrough of how this blog was scaffolded, version-controlled,
+and deployed for Assignment 2 of the <em>Remote Development</em> course.</p>
+</div></blockquote>
+<section id="tooling-choices">
+<h2>1. Tooling Choices<a class="headerlink" href="#tooling-choices" title="Link to this heading">¶</a></h2>
+<section id="why-sphinx-instead-of-hugo-vuepress">
+<h3>1.1 Why Sphinx (instead of Hugo / VuePress)<a class="headerlink" href="#why-sphinx-instead-of-hugo-vuepress" title="Link to this heading">¶</a></h3>
+<p>The course lecture notes recommend Hugo for blogs and Sphinx for
+documentation, and offer both as acceptable choices. I chose <strong>Sphinx</strong>
+for three concrete reasons:</p>
+<ol class="arabic simple">
+<li><p><strong>Coursework alignment.</strong> The in-class exercise walks step-by-step
+through <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code>, <code class="docutils literal notranslate"><span class="pre">myst-parser</span></code>, and <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>. Following
+the same toolchain made it possible to follow the official guidance
+verbatim instead of translating each step to Hugo’s <code class="docutils literal notranslate"><span class="pre">front</span> <span class="pre">matter</span></code>
+conventions.</p></li>
+<li><p><strong>Markdown-first writing.</strong> With the <code class="docutils literal notranslate"><span class="pre">myst-parser</span></code> extension, every
+<code class="docutils literal notranslate"><span class="pre">.md</span></code> file under <code class="docutils literal notranslate"><span class="pre">docs-web/source/</span></code> becomes a page. The Assignment 1
+report could therefore be reused exactly as written, without any
+format conversion.</p></li>
+<li><p><strong>Stability over novelty.</strong> Sphinx has a 15-year track record. The
+build behavior is fully deterministic: the same source produces the
+same HTML across machines.</p></li>
+</ol>
+</section>
+<section id="why-furo-instead-of-the-default-read-the-docs-theme">
+<h3>1.2 Why Furo (instead of the default Read-the-Docs theme)<a class="headerlink" href="#why-furo-instead-of-the-default-read-the-docs-theme" title="Link to this heading">¶</a></h3>
+<p>Sphinx out of the box ships the <code class="docutils literal notranslate"><span class="pre">alabaster</span></code> theme, which looks like a
+1990s reference manual. The course rubric does not score appearance,
+but a “personal blog” deserves to feel like one.</p>
+<p>I switched to <strong>Furo</strong> because it is:</p>
+<ul class="simple">
+<li><p>Modern: rounded corners, generous whitespace, real dark-mode toggle.</p></li>
+<li><p>Fast: a single CSS file, no JavaScript framework dependency.</p></li>
+<li><p>Maintained: the author also maintains pip and Sphinx itself, so it
+tracks Sphinx releases closely.</p></li>
+</ul>
+<p>The switch is a one-line change in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:
+<code class="docutils literal notranslate"><span class="pre">html_theme</span> <span class="pre">=</span> <span class="pre">&quot;furo&quot;</span></code>.</p>
+</section>
+<section id="why-the-school-gitlab-instead-of-github-gitee">
+<h3>1.3 Why the school GitLab (instead of GitHub / Gitee)<a class="headerlink" href="#why-the-school-gitlab-instead-of-github-gitee" title="Link to this heading">¶</a></h3>
+<p>The course Lecture 4 lists four acceptable Git servers: GitHub, GitLab,
+Gitee, and the school’s internal GitLab at
+<code class="docutils literal notranslate"><span class="pre">http://10.62.192.92:11080/</span></code>. I chose the <strong>school GitLab</strong> for two
+reasons:</p>
+<ol class="arabic simple">
+<li><p><strong>Course alignment.</strong> The course server, the GitLab server, and the
+workstation all live on the same campus network. Using the school
+GitLab keeps every credential, every URL, and every hop inside the
+same network — which is the exact discipline the course is teaching.</p></li>
+<li><p><strong>No external dependency.</strong> GitHub access can be flaky from a campus
+IP; the school GitLab never has that problem.</p></li>
+</ol>
+<p>The trade-off is that the school GitLab requires an admin to approve
+new accounts. I had to email the TA for approval after self-registering;
+the account was activated within an hour.</p>
+</section>
+</section>
+<section id="initial-setup">
+<h2>2. Initial Setup<a class="headerlink" href="#initial-setup" title="Link to this heading">¶</a></h2>
+<section id="local-environment">
+<h3>2.1 Local environment<a class="headerlink" href="#local-environment" title="Link to this heading">¶</a></h3>
+<p>The project lives in WSL2 Ubuntu 22.04 on a Windows 11 host. A normal
+user <code class="docutils literal notranslate"><span class="pre">meng</span></code> was created (with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> access) instead of using <code class="docutils literal notranslate"><span class="pre">root</span></code>,
+which mirrors the conventions of the course server at
+<code class="docutils literal notranslate"><span class="pre">10.62.192.91:9991</span></code>.</p>
+<p>A dedicated <code class="docutils literal notranslate"><span class="pre">sphinx-env</span></code> conda environment isolates the dependencies:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>conda create -n sphinx-env python=3.11 -y
+conda activate sphinx-env
+pip install sphinx myst-parser furo numpy
+</pre></div>
+</div>
+</section>
+<section id="sphinx-project">
+<h3>2.2 Sphinx project<a class="headerlink" href="#sphinx-project" title="Link to this heading">¶</a></h3>
+<p>The project layout was created with <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code>, choosing the
+“separate source and build directories” option that the course warns
+about. The result is the standard layout:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>my-remote-project/
+|-- matrix.py
+|-- README.md
+|-- .gitignore
+`-- docs-web/
+    |-- Makefile
+    `-- source/
+        |-- conf.py
+        |-- index.rst
+        |-- assignment1.md
+        `-- assignment2.md   (this file)
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">conf.py</span></code> was edited in three places:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">extensions</span> <span class="pre">=</span> <span class="pre">['myst_parser']</span></code> to enable Markdown.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source_suffix</span> <span class="pre">=</span> <span class="pre">{'.rst':</span> <span class="pre">'restructuredtext',</span> <span class="pre">'.md':</span> <span class="pre">'markdown'}</span></code>
+so <code class="docutils literal notranslate"><span class="pre">.md</span></code> files are picked up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">html_theme</span> <span class="pre">=</span> <span class="pre">'furo'</span></code> to switch themes.</p></li>
+</ul>
+</section>
+</section>
+<section id="version-control-with-git">
+<h2>3. Version Control with Git<a class="headerlink" href="#version-control-with-git" title="Link to this heading">¶</a></h2>
+<section id="repository">
+<h3>3.1 Repository<a class="headerlink" href="#repository" title="Link to this heading">¶</a></h3>
+<p>A blank, public project named <code class="docutils literal notranslate"><span class="pre">my-remote-project</span></code> was created on the
+school GitLab. Authentication uses an Ed25519 SSH key pair; the public
+key is registered under the GitLab user profile. The remote URL is</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ssh://git@10.62.192.92:11022/Meng/my-remote-project.git
+</pre></div>
+</div>
+<p>(Note the non-standard SSH port 11022.)</p>
+</section>
+<section id="commit-history">
+<h3>3.2 Commit history<a class="headerlink" href="#commit-history" title="Link to this heading">¶</a></h3>
+<p>The project deliberately keeps each commit small and self-explanatory.
+Every commit message follows the conventional-commits prefix style
+(<code class="docutils literal notranslate"><span class="pre">init:</span></code>, <code class="docutils literal notranslate"><span class="pre">docs:</span></code>, <code class="docutils literal notranslate"><span class="pre">feat:</span></code>, <code class="docutils literal notranslate"><span class="pre">chore:</span></code>).</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Hash</p></th>
+<th class="head"><p>Message</p></th>
+<th class="head"><p>Rationale</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0e20781</p></td>
+<td><p>init: scaffold Sphinx blog with Furo theme and add Assignment 1 report</p></td>
+<td><p>The initial state — project structure, Furo theme, and the full Assignment 1 deliverable, all in one root commit.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>345f991</p></td>
+<td><p>docs: add README with project overview, layout, and build instructions</p></td>
+<td><p>A README is the standard repository entry point. Adding it as the second commit makes the GitLab project page self-documenting.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>(this)</p></td>
+<td><p>docs: add Assignment 2 process write-up</p></td>
+<td><p>This file. Documents the toolchain choices, the workflow, and the commit history itself.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>(later)</p></td>
+<td><p>feat: deploy site / chore: add deployment notes</p></td>
+<td><p>Captures the deployment step described in section 4.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>(later)</p></td>
+<td><p>chore: final polish before submission</p></td>
+<td><p>Last-mile cleanup: navigation, links, and any small fixes discovered during final review.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> excludes <code class="docutils literal notranslate"><span class="pre">docs-web/build/</span></code>, <code class="docutils literal notranslate"><span class="pre">__pycache__/</span></code>, and
+common editor noise. As a result, only source files are tracked — the
+generated HTML is rebuilt by every reader who clones the repo, which
+is the only way to guarantee that the published site matches the
+checked-in source.</p>
+</section>
+</section>
+<section id="build-deploy">
+<h2>4. Build &amp; Deploy<a class="headerlink" href="#build-deploy" title="Link to this heading">¶</a></h2>
+<section id="local-build">
+<h3>4.1 Local build<a class="headerlink" href="#local-build" title="Link to this heading">¶</a></h3>
+<p>Building the site is a single command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd docs-web
+make html
+</pre></div>
+</div>
+<p>The output appears in <code class="docutils literal notranslate"><span class="pre">docs-web/build/html/</span></code>. Opening
+<code class="docutils literal notranslate"><span class="pre">build/html/index.html</span></code> in a browser shows the site as it will be
+served.</p>
+</section>
+<section id="deployment">
+<h3>4.2 Deployment<a class="headerlink" href="#deployment" title="Link to this heading">¶</a></h3>
+<p>The site is served from <code class="docutils literal notranslate"><span class="pre">(deployment</span> <span class="pre">URL</span> <span class="pre">—</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">filled</span> <span class="pre">in</span> <span class="pre">after</span> <span class="pre">deployment)</span></code>. The deployed copy is rebuilt from the same <code class="docutils literal notranslate"><span class="pre">main</span></code> branch
+on the school GitLab, so the public site always matches the source of
+truth.</p>
+</section>
+</section>
+<section id="what-worked-what-didn-t">
+<h2>5. What Worked, What Didn’t<a class="headerlink" href="#what-worked-what-didn-t" title="Link to this heading">¶</a></h2>
+<p>A few honest notes for anyone reproducing this setup.</p>
+<ul class="simple">
+<li><p><strong>MyST is strict about heading levels.</strong> Skipping from <code class="docutils literal notranslate"><span class="pre">##</span></code> to <code class="docutils literal notranslate"><span class="pre">####</span></code>
+triggers a build warning. The fix is just to keep the hierarchy
+contiguous, but it took a few rebuilds to notice.</p></li>
+<li><p><strong>Math blocks inside Markdown break Sphinx unless <code class="docutils literal notranslate"><span class="pre">dollarmath</span></code> is
+enabled.</strong> I removed the LaTeX matrix in Assignment 1 and described
+the result in prose instead, which is clearer anyway.</p></li>
+<li><p><strong>Code fences must be balanced.</strong> A single missing closing fence
+caused everything from that line to the end of the document to be
+rendered as one giant code block. <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-n</span> <span class="pre">'^```'</span> <span class="pre">file.md</span></code> is the
+fastest way to spot this.</p></li>
+<li><p><strong>Terminal pasting can corrupt heredocs.</strong> Long <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">&lt;&lt;</span> <span class="pre">EOF</span></code> blocks
+occasionally swallowed the <code class="docutils literal notranslate"><span class="pre">EOF</span></code> marker on paste, which left bash
+hanging on <code class="docutils literal notranslate"><span class="pre">&gt;</span> </code> for input. Writing files in an external editor and
+copying them in via <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">/mnt/d/...</span></code> avoids the problem entirely.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>6. References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Sphinx documentation: <a class="reference external" href="https://www.sphinx-doc.org/">https://www.sphinx-doc.org/</a></p></li>
+<li><p>Furo theme: <a class="reference external" href="https://pradyunsg.me/furo/">https://pradyunsg.me/furo/</a></p></li>
+<li><p>MyST parser: <a class="reference external" href="https://myst-parser.readthedocs.io/">https://myst-parser.readthedocs.io/</a></p></li>
+<li><p>Course materials, Lecture 4 (Remote Workstation &amp; Git Server)</p></li>
+<li><p>Course materials, Lecture 7 (Linux Tools, Remote Workflow, Version Control)</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="assignment1.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Remote Development Project Report</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, Meng Wang
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Assignment 2 — Static Personal Blog Website</a><ul>
+<li><a class="reference internal" href="#tooling-choices">1. Tooling Choices</a><ul>
+<li><a class="reference internal" href="#why-sphinx-instead-of-hugo-vuepress">1.1 Why Sphinx (instead of Hugo / VuePress)</a></li>
+<li><a class="reference internal" href="#why-furo-instead-of-the-default-read-the-docs-theme">1.2 Why Furo (instead of the default Read-the-Docs theme)</a></li>
+<li><a class="reference internal" href="#why-the-school-gitlab-instead-of-github-gitee">1.3 Why the school GitLab (instead of GitHub / Gitee)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#initial-setup">2. Initial Setup</a><ul>
+<li><a class="reference internal" href="#local-environment">2.1 Local environment</a></li>
+<li><a class="reference internal" href="#sphinx-project">2.2 Sphinx project</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#version-control-with-git">3. Version Control with Git</a><ul>
+<li><a class="reference internal" href="#repository">3.1 Repository</a></li>
+<li><a class="reference internal" href="#commit-history">3.2 Commit history</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-deploy">4. Build &amp; Deploy</a><ul>
+<li><a class="reference internal" href="#local-build">4.1 Local build</a></li>
+<li><a class="reference internal" href="#deployment">4.2 Deployment</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-worked-what-didn-t">5. What Worked, What Didn’t</a></li>
+<li><a class="reference internal" href="#references">6. References</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
