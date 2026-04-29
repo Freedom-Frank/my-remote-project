@@ -27,3 +27,6 @@ exclude_patterns = []
 
 html_theme = 'furo'
 html_static_path = ['_static']
+
+# Override the default "X.X documentation" sidebar title
+html_title = "Meng Wang's Blog"

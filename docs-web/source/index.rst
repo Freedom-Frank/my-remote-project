@@ -24,8 +24,3 @@ Contents
    assignment2
 
 
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`search`
