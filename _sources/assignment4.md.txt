@@ -60,7 +60,7 @@ the thesis taking damage build a score multiplier up to ×4).
 | Item | Choice | Why |
 |---|---|---|
 | AI dev partner | Claude (via Claude Code) | Pair-programmed the whole project |
-| In-game NPC model | `claude-haiku-4-5` | The AI advisor needs low-latency, low-cost replies — Haiku is the fastest/cheapest current model |
+| In-game NPC model | `deepseek-chat` | The AI advisor needs low-latency, low-cost replies; reuses the DeepSeek key from Assignment 3 via its OpenAI-compatible endpoint |
 | Language / framework | Plain HTML5 Canvas + CSS + JavaScript (zero deps, zero build) | Double-click-to-play, runs on any OS/browser; avoids a build toolchain breaking during the demo |
 | Audio | WebAudio API, procedurally synthesized | No audio asset files needed at all |
 | Art | Emoji + Canvas drawing | Cross-platform "sprites" with zero art cost |
@@ -98,11 +98,12 @@ caused by CSS scaling, solved with
   nothing ran on double-click. I challenged it; it confirmed this is a browser
   security limit (not a code bug) and we switched to plain scripts with one
   global object per module. Critical, since the brief wants a runnable app.
-- **Browser → Anthropic API was blocked by CORS.** Rather than trusting the
-  AI's memory, I had it check the official API docs, which confirmed the request
-  needs the `anthropic-dangerous-direct-browser-access: true` header for direct
-  browser calls — and that `claude-haiku-4-5` is a real current model alias (so
-  we did not invent a date-suffixed ID).
+- **Browser-direct LLM API calls and CORS.** A browser `fetch` to a third-party
+  API is often blocked by the same-origin policy. Instead of assuming, I tested
+  it: a request with an invalid key returned HTTP 401 — meaning it *reached*
+  DeepSeek's server (CORS is open) rather than being blocked as a network error —
+  so a pure client-side call works. DeepSeek exposes an OpenAI-compatible
+  endpoint, so the advisor reuses the same key and call shape as Assignment 3.
 - **Silent AudioContext.** Sound code "looked right" but was mute with no error;
   the cause was the browser autoplay policy (AudioContext must be created/resumed
   after a user gesture). Fixed by initializing on first click.
@@ -123,13 +124,13 @@ A persistent **AI Advisor** NPC sits beside the game in two modes:
    pickups, combo streaks, score milestones, game over) and pushes witty,
    battle-aware tips; the chat box answers gameplay questions by keyword match.
    This works with no key, so the demo is risk-free.
-2. **Live Claude mode (optional).** Paste an Anthropic API key (⚙️) and the chat
-   is driven by `claude-haiku-4-5`, with the **live battle state** (wave, score,
+2. **Live DeepSeek mode (optional).** Paste a DeepSeek API key (⚙️) and the chat
+   is driven by `deepseek-chat`, with the **live battle state** (wave, score,
    thesis/player HP, enemies on screen, boss active) injected into the system
    prompt, so the advisor can converse freely about the current situation. The
    key is stored only in the browser's localStorage and the request goes
-   straight to the official API — no third-party server. On any API failure it
-   gracefully falls back to the built-in answer.
+   straight to the official DeepSeek API — no third-party server. On any API
+   failure it gracefully falls back to the built-in answer.
 
 ## Cross-Platform Support
 

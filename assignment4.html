@@ -298,8 +298,8 @@ the thesis taking damage build a score multiplier up to ×4).</p>
 <td><p>Pair-programmed the whole project</p></td>
 </tr>
 <tr class="row-odd"><td><p>In-game NPC model</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">claude-haiku-4-5</span></code></p></td>
-<td><p>The AI advisor needs low-latency, low-cost replies — Haiku is the fastest/cheapest current model</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deepseek-chat</span></code></p></td>
+<td><p>The AI advisor needs low-latency, low-cost replies; reuses the DeepSeek key from Assignment 3 via its OpenAI-compatible endpoint</p></td>
 </tr>
 <tr class="row-even"><td><p>Language / framework</p></td>
 <td><p>Plain HTML5 Canvas + CSS + JavaScript (zero deps, zero build)</p></td>
@@ -349,11 +349,12 @@ caused by CSS scaling, solved with
 nothing ran on double-click. I challenged it; it confirmed this is a browser
 security limit (not a code bug) and we switched to plain scripts with one
 global object per module. Critical, since the brief wants a runnable app.</p></li>
-<li><p><strong>Browser → Anthropic API was blocked by CORS.</strong> Rather than trusting the
-AI’s memory, I had it check the official API docs, which confirmed the request
-needs the <code class="docutils literal notranslate"><span class="pre">anthropic-dangerous-direct-browser-access:</span> <span class="pre">true</span></code> header for direct
-browser calls — and that <code class="docutils literal notranslate"><span class="pre">claude-haiku-4-5</span></code> is a real current model alias (so
-we did not invent a date-suffixed ID).</p></li>
+<li><p><strong>Browser-direct LLM API calls and CORS.</strong> A browser <code class="docutils literal notranslate"><span class="pre">fetch</span></code> to a third-party
+API is often blocked by the same-origin policy. Instead of assuming, I tested
+it: a request with an invalid key returned HTTP 401 — meaning it <em>reached</em>
+DeepSeek’s server (CORS is open) rather than being blocked as a network error —
+so a pure client-side call works. DeepSeek exposes an OpenAI-compatible
+endpoint, so the advisor reuses the same key and call shape as Assignment 3.</p></li>
 <li><p><strong>Silent AudioContext.</strong> Sound code “looked right” but was mute with no error;
 the cause was the browser autoplay policy (AudioContext must be created/resumed
 after a user gesture). Fixed by initializing on first click.</p></li>
@@ -373,13 +374,13 @@ recall; for logic bugs I used a “describe the symptom → AI proposes a hypoth
 pickups, combo streaks, score milestones, game over) and pushes witty,
 battle-aware tips; the chat box answers gameplay questions by keyword match.
 This works with no key, so the demo is risk-free.</p></li>
-<li><p><strong>Live Claude mode (optional).</strong> Paste an Anthropic API key (⚙️) and the chat
-is driven by <code class="docutils literal notranslate"><span class="pre">claude-haiku-4-5</span></code>, with the <strong>live battle state</strong> (wave, score,
+<li><p><strong>Live DeepSeek mode (optional).</strong> Paste a DeepSeek API key (⚙️) and the chat
+is driven by <code class="docutils literal notranslate"><span class="pre">deepseek-chat</span></code>, with the <strong>live battle state</strong> (wave, score,
 thesis/player HP, enemies on screen, boss active) injected into the system
 prompt, so the advisor can converse freely about the current situation. The
 key is stored only in the browser’s localStorage and the request goes
-straight to the official API — no third-party server. On any API failure it
-gracefully falls back to the built-in answer.</p></li>
+straight to the official DeepSeek API — no third-party server. On any API
+failure it gracefully falls back to the built-in answer.</p></li>
 </ol>
 </section>
 <section id="cross-platform-support">
