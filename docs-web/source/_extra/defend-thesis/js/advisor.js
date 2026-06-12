@@ -1,7 +1,7 @@
 /* ===== AI 导师 NPC =====
  * 双模式：
  * 1) 内置模式：规则引擎，根据游戏事件/战况推送提示，聊天用关键词匹配回答。
- * 2) Claude 模式：填入 API Key 后，聊天经由 Anthropic Messages API（claude-haiku-4-5），
+ * 2) DeepSeek 模式：填入 API Key 后，聊天经由 DeepSeek 的 OpenAI 兼容接口（deepseek-chat），
  *    系统提示词中注入实时战况，导师可自由对话。
  */
 window.Advisor = (() => {
@@ -16,7 +16,8 @@ window.Advisor = (() => {
   let chatHistory = [];        // 发给 Claude 的最近对话
   let logEl, inputEl, formEl;
 
-  const MODEL = 'claude-haiku-4-5';
+  const MODEL = 'deepseek-chat';
+  const API_URL = 'https://api.deepseek.com/v1/chat/completions';
   const keyStore = 'dyt_api_key';
 
   // ---------- 文案 ----------
@@ -189,7 +190,7 @@ window.Advisor = (() => {
     return pick(idleTips());
   }
 
-  // ---------- 聊天：Claude API ----------
+  // ---------- 聊天：DeepSeek API（OpenAI 兼容接口） ----------
   function buildSystem() {
     const st = getState() || {};
     const stateStr = st.state === 'playing'
@@ -204,28 +205,26 @@ window.Advisor = (() => {
       'Stay in character as a witty, supportive academic advisor. Answer in 1-3 short sentences, with humor and occasional jokes about academia. Give practical advice based on the live battle state. Reply in the same language the player uses.';
   }
 
-  async function askClaude(q) {
+  async function askDeepSeek(q) {
     const key = localStorage.getItem(keyStore);
     chatHistory.push({ role: 'user', content: q });
     if (chatHistory.length > 8) chatHistory = chatHistory.slice(-8);
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    // DeepSeek 走 OpenAI 兼容格式：system 作为第一条 message，鉴权用 Bearer
+    const res = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
+        'authorization': 'Bearer ' + key,
       },
       body: JSON.stringify({
         model: MODEL,
         max_tokens: 300,
-        system: buildSystem(),
-        messages: chatHistory,
+        messages: [{ role: 'system', content: buildSystem() }].concat(chatHistory),
       }),
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('') || '...';
+    const text = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content || '').trim() || '...';
     chatHistory.push({ role: 'assistant', content: text });
     return text;
   }
@@ -241,7 +240,7 @@ window.Advisor = (() => {
       logEl.appendChild(thinking);
       logEl.scrollTop = logEl.scrollHeight;
       try {
-        const text = await askClaude(q);
+        const text = await askDeepSeek(q);
         thinking.remove();
         say(text);
       } catch (err) {
