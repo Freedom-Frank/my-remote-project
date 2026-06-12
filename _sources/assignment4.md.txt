@@ -61,7 +61,7 @@ the thesis taking damage build a score multiplier up to ×4).
 |---|---|---|
 | AI dev partner | Claude (via Claude Code) | Pair-programmed the whole project |
 | In-game NPC model | `claude-haiku-4-5` | The AI advisor needs low-latency, low-cost replies — Haiku is the fastest/cheapest current model |
-| Language / framework | Plain HTML5 Canvas + CSS + JavaScript (zero deps, zero build) | Double-click-to-play, runs on any OS/browser (cross-platform bonus); avoids a build toolchain breaking during the demo |
+| Language / framework | Plain HTML5 Canvas + CSS + JavaScript (zero deps, zero build) | Double-click-to-play, runs on any OS/browser; avoids a build toolchain breaking during the demo |
 | Audio | WebAudio API, procedurally synthesized | No audio asset files needed at all |
 | Art | Emoji + Canvas drawing | Cross-platform "sprites" with zero art cost |
 | Storage | localStorage | Best score, language, mute, API key |
@@ -114,7 +114,7 @@ recall; for logic bugs I used a "describe the symptom → AI proposes a hypothes
 
 ---
 
-## The Embedded AI Agent (Bonus +3)
+## The Embedded AI Agent
 
 A persistent **AI Advisor** NPC sits beside the game in two modes:
 
@@ -131,7 +131,7 @@ A persistent **AI Advisor** NPC sits beside the game in two modes:
    straight to the official API — no third-party server. On any API failure it
    gracefully falls back to the built-in answer.
 
-## Cross-Platform (Bonus +2)
+## Cross-Platform Support
 
 Pure HTML5/Canvas/JS with no build and no dependencies runs identically on
 Windows, macOS, and Linux browsers; the UI is fully bilingual (EN default, one
