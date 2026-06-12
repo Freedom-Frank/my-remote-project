@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📜 保卫论文 · Defend Your Thesis</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="layout">
+
+  <div id="game-wrap">
+    <canvas id="game" width="960" height="600"></canvas>
+
+    <!-- HUD（游戏中显示） -->
+    <div id="hud" class="hidden">
+      <div class="hud-left">
+        <div class="bar-row"><span class="bar-ico">📜</span><div class="bar"><div id="bar-thesis" class="bar-fill thesis"></div></div></div>
+        <div class="bar-row"><span class="bar-ico" id="hud-player-ico">🧑‍🎓</span><div class="bar"><div id="bar-player" class="bar-fill player"></div></div></div>
+        <div id="buffs"></div>
+      </div>
+      <div class="hud-mid"><span data-i18n="wave"></span> <b id="hud-wave">1</b></div>
+      <div class="hud-right">
+        <div><span data-i18n="score"></span> <b id="hud-score">0</b></div>
+        <div class="dim small"><span data-i18n="best"></span> <span id="hud-best">0</span></div>
+      </div>
+    </div>
+
+    <!-- 主菜单 / 角色选择 -->
+    <div id="overlay-menu" class="overlay">
+      <div class="corner-row">
+        <button id="btn-lang" class="chip" title="Language">EN</button>
+        <button id="btn-mute" class="chip" title="Mute">🔊</button>
+      </div>
+      <h1 class="title">📜 <span data-i18n="title"></span></h1>
+      <p class="subtitle" data-i18n="subtitle"></p>
+      <h2 class="choose" data-i18n="choose"></h2>
+      <div id="char-cards">
+        <div class="char-card" data-char="phd">
+          <div class="char-emoji">🧑‍🎓</div>
+          <div class="char-name" data-i18n="phd_name"></div>
+          <div class="char-desc" data-i18n="phd_desc"></div>
+          <div class="stat"><span data-i18n="st_speed"></span><div class="sbar"><i style="width:60%"></i></div></div>
+          <div class="stat"><span data-i18n="st_rate"></span><div class="sbar"><i style="width:55%"></i></div></div>
+          <div class="stat"><span data-i18n="st_dmg"></span><div class="sbar"><i style="width:54%"></i></div></div>
+          <div class="stat"><span data-i18n="st_hp"></span><div class="sbar"><i style="width:90%"></i></div></div>
+        </div>
+        <div class="char-card" data-char="wizard">
+          <div class="char-emoji">🧙</div>
+          <div class="char-name" data-i18n="wizard_name"></div>
+          <div class="char-desc" data-i18n="wizard_desc"></div>
+          <div class="stat"><span data-i18n="st_speed"></span><div class="sbar"><i style="width:45%"></i></div></div>
+          <div class="stat"><span data-i18n="st_rate"></span><div class="sbar"><i style="width:100%"></i></div></div>
+          <div class="stat"><span data-i18n="st_dmg"></span><div class="sbar"><i style="width:31%"></i></div></div>
+          <div class="stat"><span data-i18n="st_hp"></span><div class="sbar"><i style="width:80%"></i></div></div>
+        </div>
+        <div class="char-card" data-char="postdoc">
+          <div class="char-emoji">🧑‍🔬</div>
+          <div class="char-name" data-i18n="postdoc_name"></div>
+          <div class="char-desc" data-i18n="postdoc_desc"></div>
+          <div class="stat"><span data-i18n="st_speed"></span><div class="sbar"><i style="width:100%"></i></div></div>
+          <div class="stat"><span data-i18n="st_rate"></span><div class="sbar"><i style="width:32%"></i></div></div>
+          <div class="stat"><span data-i18n="st_dmg"></span><div class="sbar"><i style="width:100%"></i></div></div>
+          <div class="stat"><span data-i18n="st_hp"></span><div class="sbar"><i style="width:100%"></i></div></div>
+        </div>
+      </div>
+      <p class="controls" data-i18n="controls"></p>
+      <p class="dim small"><span data-i18n="best"></span>: <span id="menu-best">0</span></p>
+    </div>
+
+    <!-- 暂停 -->
+    <div id="overlay-pause" class="overlay hidden">
+      <h1 data-i18n="paused"></h1>
+      <button id="btn-resume" class="btn" data-i18n="resume"></button>
+      <button id="btn-pause-menu" class="btn ghost" data-i18n="menu"></button>
+    </div>
+
+    <!-- 波次间强化选择 -->
+    <div id="overlay-upgrade" class="overlay hidden">
+      <h1 class="upg-title" data-i18n="upgrade_title"></h1>
+      <p class="subtitle" data-i18n="upgrade_pick"></p>
+      <div id="upgrade-cards"></div>
+    </div>
+
+    <!-- 游戏结束 -->
+    <div id="overlay-gameover" class="overlay hidden">
+      <h1 id="go-title"></h1>
+      <p id="go-degree" class="degree"></p>
+      <p id="go-stats"></p>
+      <p id="go-upgrades" class="small dim"></p>
+      <p id="go-roast" class="dim"></p>
+      <button id="btn-retry" class="btn" data-i18n="retry"></button>
+      <button id="btn-go-menu" class="btn ghost" data-i18n="menu"></button>
+    </div>
+  </div>
+
+  <!-- AI 导师面板 -->
+  <aside id="advisor-panel">
+    <div class="advisor-head">
+      <span>🤖 <b data-i18n="advisor_title"></b></span>
+      <button id="btn-ai-settings" class="chip" title="AI Settings">⚙️</button>
+    </div>
+    <div id="advisor-log"></div>
+    <form id="advisor-form" autocomplete="off">
+      <input id="advisor-input" data-i18n-ph="advisor_placeholder" maxlength="200">
+      <button type="submit" class="btn small" data-i18n="send"></button>
+    </form>
+  </aside>
+
+</div>
+
+<!-- API Key 设置弹窗 -->
+<div id="modal-api" class="modal hidden">
+  <div class="modal-box">
+    <h3 data-i18n="api_settings"></h3>
+    <p class="dim small" data-i18n="api_desc"></p>
+    <input id="api-key-input" type="password" placeholder="sk-ant-...">
+    <div class="row">
+      <button id="btn-api-save" class="btn small" data-i18n="save"></button>
+      <button id="btn-api-clear" class="btn small ghost" data-i18n="clear"></button>
+      <button id="btn-api-close" class="btn small ghost" data-i18n="close"></button>
+    </div>
+    <p id="api-status" class="dim small"></p>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/advisor.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

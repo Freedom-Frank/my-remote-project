@@ -1,0 +1,300 @@
+/* ===== 保卫论文 Defend Your Thesis ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0b1020;
+  --panel: #161e33;
+  --panel2: #1d2742;
+  --line: #2c3a5e;
+  --text: #e8ecf6;
+  --dim: #93a0bd;
+  --accent: #e8b44f;
+  --accent2: #6fb7ff;
+  --danger: #ff6b6b;
+  --ok: #5ad08a;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  min-height: 100%;
+}
+
+#layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: stretch;
+  padding: 18px;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+/* ---------- 游戏区 ---------- */
+#game-wrap {
+  position: relative;
+  width: min(960px, 100%);
+  flex: 0 1 960px;
+}
+canvas#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #10182b;
+  cursor: crosshair;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 14px;
+  pointer-events: none;
+  font-size: 14px;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+.hud-left { display: flex; flex-direction: column; gap: 4px; min-width: 220px; }
+.bar-row { display: flex; align-items: center; gap: 6px; }
+.bar-ico { width: 22px; text-align: center; }
+.bar {
+  width: 180px; height: 12px;
+  background: rgba(0,0,0,.5);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.bar-fill { height: 100%; width: 100%; border-radius: 5px; transition: width .15s; }
+.bar-fill.thesis { background: linear-gradient(90deg, #e8b44f, #f7d98c); }
+.bar-fill.player { background: linear-gradient(90deg, #4f9ce8, #8cc6f7); }
+#buffs { display: flex; gap: 6px; margin-top: 2px; }
+.buff-badge {
+  background: rgba(0,0,0,.55);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1px 8px;
+  font-size: 12px;
+}
+.hud-mid { font-size: 18px; letter-spacing: 1px; }
+.hud-mid b { color: var(--accent); font-size: 22px; }
+.hud-right { text-align: right; }
+.hud-right b { color: var(--accent); font-size: 18px; }
+
+/* ---------- 覆盖层 ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(8, 12, 26, .92);
+  border-radius: 12px;
+  text-align: center;
+  padding: 20px;
+}
+.corner-row { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; z-index: 5; }
+.title { font-size: clamp(28px, 4.6vw, 40px); color: var(--accent); letter-spacing: 1px; padding: 0 70px; }
+#overlay-menu { justify-content: flex-start; padding-top: 52px; overflow-y: auto; }
+.subtitle { color: var(--dim); margin-bottom: 6px; }
+.choose { font-size: 18px; color: var(--accent2); }
+.controls { color: var(--dim); font-size: 13px; margin-top: 6px; }
+.degree { font-size: 22px; color: var(--accent); }
+.dim { color: var(--dim); }
+.small { font-size: 12px; }
+
+#overlay-gameover h1 { font-size: 38px; color: var(--danger); }
+
+/* ---------- 角色卡片 ---------- */
+#char-cards { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.char-card {
+  width: 190px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: transform .12s, border-color .12s, box-shadow .12s;
+  text-align: left;
+}
+.char-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(232,180,79,.18);
+}
+.char-emoji { font-size: 44px; text-align: center; }
+.char-name { font-weight: bold; font-size: 16px; text-align: center; margin: 6px 0 2px; color: var(--accent); }
+.char-desc { font-size: 12px; color: var(--dim); text-align: center; min-height: 32px; margin-bottom: 8px; }
+.stat { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--dim); margin-top: 4px; }
+.stat span { width: 44px; flex: none; }
+.sbar { flex: 1; height: 6px; background: rgba(0,0,0,.45); border-radius: 3px; overflow: hidden; }
+.sbar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 3px; }
+
+/* ---------- 按钮 ---------- */
+.btn {
+  background: var(--accent);
+  color: #1a1408;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn:hover { filter: brightness(1.1); }
+.btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+.btn.small { padding: 6px 14px; font-size: 13px; }
+.chip {
+  background: var(--panel2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 4px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.chip:hover { border-color: var(--accent); }
+
+/* ---------- AI 导师面板 ---------- */
+#advisor-panel {
+  flex: 1 1 300px;
+  max-width: 340px;
+  min-width: 270px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 480px;
+  max-height: 604px;
+}
+.advisor-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel2);
+}
+#advisor-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  scrollbar-width: thin;
+}
+.msg { display: flex; gap: 6px; line-height: 1.5; }
+.msg .who { flex: none; }
+.msg .body {
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.msg.user { flex-direction: row-reverse; }
+.msg.user .body { background: #243456; border-color: #36548f; }
+.msg.alert .body { border-color: var(--danger); }
+.msg.tip .body { border-color: var(--line); }
+#advisor-form {
+  display: flex;
+  gap: 6px;
+  padding: 10px;
+  border-top: 1px solid var(--line);
+}
+#advisor-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 7px 10px;
+  font-size: 13px;
+  font-family: inherit;
+}
+#advisor-input:focus { outline: none; border-color: var(--accent2); }
+
+/* ---------- 弹窗 ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal-box {
+  width: min(420px, 92vw);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal-box input {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 8px 10px;
+  font-family: inherit;
+}
+.modal-box .row { display: flex; gap: 8px; }
+
+/* ---------- 强化选择卡片 ---------- */
+.upg-title { font-size: 34px; color: var(--accent); letter-spacing: 1px; }
+#upgrade-cards { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+.upg-card {
+  width: 180px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 12px;
+  cursor: pointer;
+  transition: transform .12s, border-color .12s, box-shadow .12s;
+  text-align: center;
+}
+.upg-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(232,180,79,.25);
+}
+.upg-emoji { font-size: 46px; }
+.upg-name { font-weight: bold; font-size: 16px; color: var(--accent); margin: 8px 0 4px; }
+.upg-desc { font-size: 12px; color: var(--dim); line-height: 1.4; min-height: 32px; }
+#go-upgrades { font-size: 20px; letter-spacing: 3px; }
+
+/* ---------- 菜单动效 ---------- */
+.title {
+  text-shadow: 0 0 18px rgba(232,180,79,.0);
+  animation: titleGlow 2.6s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 14px rgba(232,180,79,.25); }
+  50% { text-shadow: 0 0 26px rgba(232,180,79,.55); }
+}
+.char-card .char-emoji { transition: transform .15s; }
+.char-card:hover .char-emoji { transform: scale(1.15) translateY(-2px); }
+
+@media (max-width: 1000px) {
+  #advisor-panel { max-width: 960px; min-height: 280px; max-height: 340px; }
+}

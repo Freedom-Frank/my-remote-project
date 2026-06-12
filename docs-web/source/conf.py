@@ -28,5 +28,9 @@ exclude_patterns = []
 html_theme = 'furo'
 html_static_path = ['_static']
 
+# Copy the self-contained "Defend Your Thesis" game (Assignment 4) verbatim
+# into the build output, so it is served at <site>/defend-thesis/.
+html_extra_path = ['_extra']
+
 # Override the default "X.X documentation" sidebar title
 html_title = "Meng Wang's Blog"
